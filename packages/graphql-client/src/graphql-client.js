@@ -12,20 +12,24 @@ import {
   logoutMutation,
   verifyEmailMutation,
   createUserMutation,
-  createLoginMutation,
-  refreshTokenMutation,
   defaultUserFieldsFragment,
+  createLoginMutation,
+  createRefreshTokenMutation,
 } from './graphql';
-
 
 export type OptionsType = {
   graphQLClient: any,
-  userFieldsFragment: string
+  userFieldsFragment: string,
 };
 
 export class GraphQLClient {
   constructor(options: OptionsType = {}) {
-    this.options = options;
+    this.options = Object.assign({
+      graphQLClient: null,
+      userFieldsFragment: defaultUserFieldsFragment,
+    }, options);
+
+    this.options.userFieldsFragment = gql`${this.options.userFieldsFragment}`;
 
     if (!this.options.graphQLClient ||
       !this.options.graphQLClient.query ||
@@ -45,11 +49,19 @@ export class GraphQLClient {
       });
   }
 
+  async query(query, resultField, variables) {
+    return await this.options.graphQLClient.query({
+      query,
+      variables,
+    })
+      .then(({ data }) => (data[resultField]))
+      .catch((e) => {
+        throw new Error(e.message);
+      });
+  }
+
   async loginWithPassword(user: string, password: string): Promise<LoginReturnType> {
-    const userFieldsFragment = this.options.userFieldsFragment ?
-      gql`${this.options.userFieldsFragment}` :
-      defaultUserFieldsFragment;
-    const loginMutation = createLoginMutation(userFieldsFragment);
+    const loginMutation = createLoginMutation(this.options.userFieldsFragment);
     return await this.mutate(loginMutation, 'loginWithPassword', { user, password });
   }
 
@@ -58,7 +70,8 @@ export class GraphQLClient {
   }
 
   async refreshTokens(accessToken: string, refreshToken: string): Promise<LoginReturnType> {
-    return await this.mutate(refreshTokenMutation, 'refreshTokens', { accessToken, refreshToken });
+    const mutation = createRefreshTokenMutation(this.options.userFieldsFragment);
+    return await this.mutate(mutation, 'refreshTokens', { accessToken, refreshToken });
   }
 
   async logout(accessToken: string): Promise<void> {

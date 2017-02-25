@@ -5,14 +5,14 @@ export const createLoginMutation = userFieldsFragment => gql`
   mutation($user: String!, $password: String!) {
     loginWithPassword(user: $user, password: $password) {
       sessionId
+      ...LoginFields
       user {
         id
         ...UserFields
       }
-      ...LoginFields
     }
   }
-
-  ${loginFieldsFragment}
+  
   ${userFieldsFragment}
+  ${loginFieldsFragment}
 `;
