@@ -21,4 +21,33 @@ export const typeDefs = `
     email: String
     username: String
   }
+  
+  input UserInput {
+    id: ID
+    email: String
+    username: String
+  }
+  
+  input CreateUserInput {
+    username: String
+    email: String
+    password: String
+    profile: CreateUserProfileInput
+  }
+  
+  type PasswordType {
+    digest: String
+    algorithm: String
+  }
+  
+  input PasswordInput {
+    digest: String
+    algorithm: String
+  }
+  
+  input CreateUserProfileInput {
+    name: String
+    firstName: String
+    lastName: String
+  }
 `;
