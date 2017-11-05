@@ -7,8 +7,7 @@
     "lint": "tslint packages/*/src",
     "prebootstrap": "npm install",
     "postinstall": "lerna bootstrap",
-    "test": "npm run testonly",
-    "posttest": "npm run lint",
+    "test": "npm run lint && npm run testonly",
     "testonly": "lerna run testonly",
     "coverage": "lerna run coverage",
     "coveralls": "cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage"
@@ -19,12 +18,12 @@
   },
   "license": "MIT",
   "devDependencies": {
-    "@types/jest": "^20.0.2",
-    "@types/node": "^8.0.13",
-    "lerna": "^2.0.0",
-    "prettier": "^1.5.3",
-    "ts-jest": "^20.0.7",
-    "tslint": "^5.5.0",
+    "@types/jest": "^21.1.5",
+    "@types/node": "^8.0.47",
+    "lerna": "^2.5.1",
+    "prettier": "^1.7.4",
+    "ts-jest": "^21.1.4",
+    "tslint": "^5.8.0",
     "tslint-config-accounts": "^0.0.3",
     "typescript": "^2.4.1"
   }
