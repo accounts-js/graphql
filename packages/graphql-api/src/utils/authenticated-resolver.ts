@@ -1,4 +1,8 @@
 export const authenticated = (Accounts, func) => (async (root, args, context, info) => {
+  if (context && context.skipJSAccountsVerification === true) {
+    return await func(root, args, context, info);
+  }
+
   const authToken = context.authToken;
 
   if (!authToken || authToken === '' || authToken === null) {
@@ -11,5 +15,7 @@ export const authenticated = (Accounts, func) => (async (root, args, context, in
     throw new Error('Invalid or expired token!');
   }
 
-  return await func(root, args, { ...context, user: userObject }, info);
+  context.user = userObject;
+
+  return await func(root, args, context, info);
 });
