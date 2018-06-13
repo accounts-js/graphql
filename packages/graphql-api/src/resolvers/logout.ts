@@ -1,5 +1,5 @@
-import { AccountsServer } from "@accounts/server";
-import { IResolverContext } from "../types/graphql";
+import { AccountsServer } from '@accounts/server';
+import { IResolverContext } from '../types/graphql';
 
 export const logout = (accountsServer: AccountsServer) => async (
   _,
@@ -10,5 +10,5 @@ export const logout = (accountsServer: AccountsServer) => async (
 
   await accountsServer.logout(accessToken);
 
-  return "Logged out";
+  return 'Logged out';
 };

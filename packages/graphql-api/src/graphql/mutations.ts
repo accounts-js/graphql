@@ -1,5 +1,5 @@
 export const mutations = `
-  impersonate(accessToken: String! username: String!): ImpersonateReturn
+  impersonate(accessToken: String!, username: String!): ImpersonateReturn
   refreshTokens(accessToken: String!, refreshToken: String!): LoginReturn
   logout(accessToken: String!): Boolean
   authenticate(serviceName: String!, params: AuthenticateParamsInput!): LoginReturn

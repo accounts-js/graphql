@@ -1,18 +1,18 @@
-import { generateNamespace } from "@gql2ts/from-schema";
-import * as fs from "fs";
-import * as path from "path";
+import { generateNamespace } from '@gql2ts/from-schema';
+import * as fs from 'fs';
+import * as path from 'path';
 
-import { createJSAccountsGraphQL } from "../schema-builder";
+import { createJSAccountsGraphQL } from '../schema-builder';
 
-const schemaPath = path.join(__dirname, "../graphql/schema.d.ts");
+const schemaPath = path.join(__dirname, '../graphql/schema.d.ts');
 
 const typescriptTypes = generateNamespace(
-  "GQL",
+  'GQL',
   createJSAccountsGraphQL(null, {
-    rootQueryName: "Query",
-    rootMutationName: "Mutation",
+    rootQueryName: 'Query',
+    rootMutationName: 'Mutation',
     extend: false,
-    withSchemaDefinition: true
+    withSchemaDefinition: true,
   }).schema
 );
 
