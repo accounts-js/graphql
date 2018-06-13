@@ -4,9 +4,8 @@ export const typeDefs = `
     accessToken: String
   }
 
-  type LoginReturn {
+  type LoginResult {
     sessionId: String
-    user: User
     tokens: Tokens
   }
 
@@ -58,5 +57,11 @@ export const typeDefs = `
     access_token_secret: String
     # OAuth
     provider: String
+    # Password
+    password: String
+    # Password
+    user: UserInput
+    # Two factor
+    code: String
   }
 `;

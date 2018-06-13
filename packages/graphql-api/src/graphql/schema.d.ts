@@ -23,9 +23,9 @@ declare namespace GQL {
   interface IMutation {
     __typename: 'Mutation';
     impersonate: IImpersonateReturn | null;
-    refreshTokens: ILoginReturn | null;
+    refreshTokens: ILoginResult | null;
     logout: boolean | null;
-    authenticate: ILoginReturn | null;
+    authenticate: ILoginResult | null;
     register: string | null;
     verifyEmail: boolean | null;
     resetPassword: boolean | null;
@@ -110,10 +110,9 @@ declare namespace GQL {
     username: string | null;
   }
 
-  interface ILoginReturn {
-    __typename: 'LoginReturn';
+  interface ILoginResult {
+    __typename: 'LoginResult';
     sessionId: string | null;
-    user: IUser | null;
     tokens: ITokens | null;
   }
 
@@ -121,6 +120,15 @@ declare namespace GQL {
     access_token?: string | null;
     access_token_secret?: string | null;
     provider?: string | null;
+    password?: string | null;
+    user?: IUserInput | null;
+    code?: string | null;
+  }
+
+  interface IUserInput {
+    id?: string | null;
+    email?: string | null;
+    username?: string | null;
   }
 
   interface ICreateUserInput {
@@ -139,16 +147,11 @@ declare namespace GQL {
   interface IQuery {
     __typename: 'Query';
     getUser: IUser | null;
+    twoFactorSecret: string | null;
   }
 
   interface IGetUserOnQueryArguments {
     accessToken: string;
-  }
-
-  interface IUserInput {
-    id?: string | null;
-    email?: string | null;
-    username?: string | null;
   }
 
   interface IPasswordType {
