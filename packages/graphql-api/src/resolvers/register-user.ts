@@ -10,7 +10,7 @@ export const registerPassword = (accountsServer: AccountsServer) => async (
 
   const password: any = accountsServer.getServices().password;
 
-  if (!(typeof password.resetPassword === 'function')) {
+  if (!(typeof password.createUser === 'function')) {
     throw new Error('Register user with password is not supported.');
   }
 

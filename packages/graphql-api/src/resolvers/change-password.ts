@@ -16,7 +16,7 @@ export const changePassword = (accountsServer: AccountsServer) => async (
   const userId = user.id;
   const password: any = accountsServer.getServices().password;
 
-  if (!(typeof password.resetPassword === 'function')) {
+  if (!(typeof password.changePassword === 'function')) {
     throw new Error('Change password is not supported.');
   }
 
