@@ -78,7 +78,7 @@ export const createJSAccountsGraphQL = (
       twoFactorSet: twoFactorSet(accountsServer),
       twoFactorUnset: twoFactorUnset(accountsServer),
 
-      // TODO: OAuth
+      // TODO: OAuth callback endpoint
     },
     [schemaOptions.rootQueryName]: {
       getUser: getUser(accountsServer),
