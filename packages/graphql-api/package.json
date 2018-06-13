@@ -13,7 +13,8 @@
     "test-ci": "yarn coverage",
     "testonly": "jest",
     "coverage": "yarn testonly -- --coverage",
-    "coveralls": "cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage"
+    "coveralls": "cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage",
+    "gen-schema-types": "ts-node src/scripts/schema-to-types.ts"
   },
   "repository": {
     "type": "git",
@@ -26,6 +27,7 @@
   },
   "homepage": "https://github.com/js-accounts/graphql-api",
   "devDependencies": {
+    "@gql2ts/from-schema": "^1.8.0",
     "concurrently": "^3.1.0",
     "coveralls": "^2.11.14",
     "jest": "^18.0.0",
@@ -35,6 +37,7 @@
   },
   "dependencies": {
     "@accounts/server": "0.1.0-alpha.58382c10",
+    "@accounts/types": "0.1.0-beta.16",
     "deepmerge": "^2.0.0"
   }
 }
