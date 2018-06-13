@@ -1,5 +1,6 @@
 import { IResolverContext } from '../types/graphql';
 import AccountsServer from '@accounts/server';
+import { AccountsPassword } from '@accounts/password';
 
 export const twoFactorSecret = (accountsServer: AccountsServer) => async (
   _,
@@ -13,7 +14,7 @@ export const twoFactorSecret = (accountsServer: AccountsServer) => async (
     throw new Error('Unauthorized');
   }
 
-  const password: any = accountsServer.getServices().password;
+  const password: any = accountsServer.getServices().password as AccountsPassword;
 
   if (!(typeof password.resetPassword === 'function')) {
     throw new Error('Change password is not supported.');
@@ -36,7 +37,7 @@ export const twoFactorSet = (accountsServer: AccountsServer) => async (
   }
 
   const userId = user.id;
-  const password: any = accountsServer.getServices().password;
+  const password: any = accountsServer.getServices().password as AccountsPassword;
 
   if (!(password && password.twoFactor && typeof password.twoFactor.set === 'function')) {
     throw new Error('Set two factor is not supported.');
@@ -59,7 +60,7 @@ export const twoFactorUnset = (accountsServer: AccountsServer) => async (
   }
 
   const userId = user.id;
-  const password: any = accountsServer.getServices().password;
+  const password: any = accountsServer.getServices().password as AccountsPassword;
 
   if (!(password && password.twoFactor && typeof password.twoFactor.unset === 'function')) {
     throw new Error('Unset two factor is not supported.');

@@ -1,5 +1,6 @@
 import { AccountsServer } from '@accounts/server';
 import { IResolverContext } from '../types/graphql';
+import { AccountsPassword } from '@accounts/password';
 
 export const resetPassword = (accountsServer: AccountsServer) => async (
   _,
@@ -8,7 +9,7 @@ export const resetPassword = (accountsServer: AccountsServer) => async (
 ) => {
   const { token, newPassword } = args;
 
-  const password: any = accountsServer.getServices().password;
+  const password: any = accountsServer.getServices().password as AccountsPassword;
 
   if (!(typeof password.resetPassword === 'function')) {
     throw new Error('Reset password is not supported.');

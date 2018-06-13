@@ -1,6 +1,6 @@
-import { UserObjectType } from '@accounts/common';
+import { User } from '@accounts/types';
 
 interface IResolverContext {
-  user: UserObjectType;
+  user: User;
   authToken: string;
 }

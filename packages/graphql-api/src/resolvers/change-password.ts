@@ -1,5 +1,6 @@
 import { IResolverContext } from '../types/graphql';
 import AccountsServer from '@accounts/server';
+import { AccountsPassword } from '@accounts/password';
 
 export const changePassword = (accountsServer: AccountsServer) => async (
   _,
@@ -14,7 +15,7 @@ export const changePassword = (accountsServer: AccountsServer) => async (
   }
 
   const userId = user.id;
-  const password: any = accountsServer.getServices().password;
+  const password = accountsServer.getServices().password as AccountsPassword;
 
   if (!(typeof password.changePassword === 'function')) {
     throw new Error('Change password is not supported.');

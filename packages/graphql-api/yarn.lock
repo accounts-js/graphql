@@ -2,11 +2,13 @@
 # yarn lockfile v1
 
 
-"@accounts/common@^0.1.0-beta.14":
-  version "0.1.0-beta.14"
-  resolved "http://registry.npm.taobao.org/@accounts/common/download/@accounts/common-0.1.0-beta.14.tgz#375ca1bd98e6c503f40e50840b24da357b1a4210"
+"@accounts/password@^0.1.0-beta.16":
+  version "0.1.0-beta.16"
+  resolved "http://registry.npm.taobao.org/@accounts/password/download/@accounts/password-0.1.0-beta.16.tgz#8a4eb7d1a9bb3bf6cf2c8601ea93934ec168c95d"
   dependencies:
-    lodash "^4.17.10"
+    "@accounts/two-factor" "^0.1.0-beta.16"
+    bcryptjs "^2.4.3"
+    lodash "^4.17.4"
 
 "@accounts/server@^0.1.0-beta.16":
   version "0.1.0-beta.16"
@@ -19,6 +21,16 @@
     jsonwebtoken "^8.0.0"
     jwt-decode "^2.1.0"
     lodash "^4.16.4"
+
+"@accounts/two-factor@^0.1.0-beta.16":
+  version "0.1.0-beta.16"
+  resolved "http://registry.npm.taobao.org/@accounts/two-factor/download/@accounts/two-factor-0.1.0-beta.16.tgz#310e9f40cfda8e015359137d1732a31d575030a0"
+  dependencies:
+    "@accounts/types" "^0.1.0-beta.16"
+    "@types/lodash" "^4.14.108"
+    "@types/speakeasy" "2.0.2"
+    lodash "^4.17.10"
+    speakeasy "^2.0.0"
 
 "@accounts/types@^0.1.0-beta.16":
   version "0.1.0-beta.16"
@@ -50,6 +62,14 @@
 "@gql2ts/util@^1.8.0":
   version "1.8.0"
   resolved "http://registry.npm.taobao.org/@gql2ts/util/download/@gql2ts/util-1.8.0.tgz#23612425b43ba1a6534e7783137276f4f567a417"
+
+"@types/lodash@^4.14.108":
+  version "4.14.109"
+  resolved "http://registry.npm.taobao.org/@types/lodash/download/@types/lodash-4.14.109.tgz#b1c4442239730bf35cabaf493c772b18c045886d"
+
+"@types/speakeasy@2.0.2":
+  version "2.0.2"
+  resolved "http://registry.npm.taobao.org/@types/speakeasy/download/@types/speakeasy-2.0.2.tgz#153ec3636eea0562209b0a2f1fdf8b479286919b"
 
 abab@^1.0.0:
   version "1.0.3"
@@ -345,13 +365,17 @@ balanced-match@^0.4.1:
   version "0.4.2"
   resolved "https://registry.yarnpkg.com/balanced-match/-/balanced-match-0.4.2.tgz#cb3f3e3c732dc0f01ee70b403f302e61d7709838"
 
+base32.js@0.0.1:
+  version "0.0.1"
+  resolved "http://registry.npm.taobao.org/base32.js/download/base32.js-0.0.1.tgz#d045736a57b1f6c139f0c7df42518a84e91bb2ba"
+
 bcrypt-pbkdf@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/bcrypt-pbkdf/-/bcrypt-pbkdf-1.0.0.tgz#3ca76b85241c7170bf7d9703e7b9aa74630040d4"
   dependencies:
     tweetnacl "^0.14.3"
 
-bcryptjs@^2.4.0:
+bcryptjs@^2.4.0, bcryptjs@^2.4.3:
   version "2.4.3"
   resolved "https://registry.yarnpkg.com/bcryptjs/-/bcryptjs-2.4.3.tgz#9ab5627b93e60621ff7cdac5da9733027df1d0cb"
 
@@ -401,6 +425,10 @@ bser@^1.0.2:
 buffer-equal-constant-time@1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/buffer-equal-constant-time/-/buffer-equal-constant-time-1.0.1.tgz#f8e71132f7ffe6e01a5c9697a4c6f3e48d5cc819"
+
+buffer-from@^1.0.0:
+  version "1.1.0"
+  resolved "http://registry.npm.taobao.org/buffer-from/download/buffer-from-1.1.0.tgz#87fcaa3a298358e0ade6e442cfce840740d1ad04"
 
 builtin-modules@^1.0.0:
   version "1.1.1"
@@ -665,6 +693,10 @@ detect-indent@^4.0.0:
 diff@^3.0.0:
   version "3.1.0"
   resolved "https://registry.yarnpkg.com/diff/-/diff-3.1.0.tgz#9406c73a401e6c2b3ba901c5e2c44eb6a60c5385"
+
+diff@^3.1.0:
+  version "3.5.0"
+  resolved "http://registry.npm.taobao.org/diff/download/diff-3.5.0.tgz#800c0dd1e0a8bfbc95835c202ad220fe317e5a12"
 
 dynamic-dedupe@^0.2.0:
   version "0.2.0"
@@ -1655,7 +1687,7 @@ lodash@^4.14.0, lodash@^4.16.4, lodash@^4.2.0, lodash@^4.5.1:
   version "4.17.2"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.2.tgz#34a3055babe04ce42467b607d700072c7ff6bf42"
 
-lodash@^4.17.10:
+lodash@^4.17.10, lodash@^4.17.4:
   version "4.17.10"
   resolved "http://registry.npm.taobao.org/lodash/download/lodash-4.17.10.tgz#1b7793cf7259ea38fb3661d4d38b3260af8ae4e7"
 
@@ -1683,6 +1715,10 @@ loud-rejection@^1.0.0:
   dependencies:
     currently-unhandled "^0.4.1"
     signal-exit "^3.0.0"
+
+make-error@^1.1.1:
+  version "1.3.4"
+  resolved "http://registry.npm.taobao.org/make-error/download/make-error-1.3.4.tgz#19978ed575f9e9545d2ff8c13e33b5d18a67d535"
 
 makeerror@1.0.x:
   version "1.0.11"
@@ -1765,7 +1801,7 @@ minimist@0.0.8, minimist@~0.0.1:
   version "0.0.8"
   resolved "https://registry.yarnpkg.com/minimist/-/minimist-0.0.8.tgz#857fcabfc3397d2625b8228262e86aa7a011b05d"
 
-minimist@1.2.0, minimist@^1.1.1, minimist@^1.1.3:
+minimist@1.2.0, minimist@^1.1.1, minimist@^1.1.3, minimist@^1.2.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/minimist/-/minimist-1.2.0.tgz#a35008b20f41383eec1fb914f4cd5df79a264284"
 
@@ -2230,6 +2266,13 @@ source-map-support@^0.4.2:
   dependencies:
     source-map "^0.5.3"
 
+source-map-support@^0.5.6:
+  version "0.5.6"
+  resolved "http://registry.npm.taobao.org/source-map-support/download/source-map-support-0.5.6.tgz#4435cee46b1aab62b8e8610ce60f788091c51c13"
+  dependencies:
+    buffer-from "^1.0.0"
+    source-map "^0.6.0"
+
 source-map@^0.4.4:
   version "0.4.4"
   resolved "https://registry.yarnpkg.com/source-map/-/source-map-0.4.4.tgz#eba4f5da9c0dc999de68032d8b4f76173652036b"
@@ -2239,6 +2282,10 @@ source-map@^0.4.4:
 source-map@^0.5.0, source-map@^0.5.3, source-map@~0.5.1:
   version "0.5.6"
   resolved "https://registry.yarnpkg.com/source-map/-/source-map-0.5.6.tgz#75ce38f52bf0733c5a7f0c118d81334a2bb5f412"
+
+source-map@^0.6.0:
+  version "0.6.1"
+  resolved "http://registry.npm.taobao.org/source-map/download/source-map-0.6.1.tgz#74722af32e9614e9c287a8d0bbde48b5e2f1a263"
 
 source-map@~0.2.0:
   version "0.2.0"
@@ -2263,6 +2310,12 @@ spdx-expression-parse@~1.0.0:
 spdx-license-ids@^1.0.2:
   version "1.2.2"
   resolved "https://registry.yarnpkg.com/spdx-license-ids/-/spdx-license-ids-1.2.2.tgz#c9df7a3424594ade6bd11900d596696dc06bac57"
+
+speakeasy@^2.0.0:
+  version "2.0.0"
+  resolved "http://registry.npm.taobao.org/speakeasy/download/speakeasy-2.0.0.tgz#85c91a071b09a5cb8642590d983566165f57613a"
+  dependencies:
+    base32.js "0.0.1"
 
 sprintf-js@~1.0.2:
   version "1.0.3"
@@ -2384,6 +2437,18 @@ tree-kill@^1.1.0:
 trim-newlines@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/trim-newlines/-/trim-newlines-1.0.0.tgz#5887966bb582a4503a41eb524f7d35011815a613"
+
+ts-node@^6.1.1:
+  version "6.1.1"
+  resolved "http://registry.npm.taobao.org/ts-node/download/ts-node-6.1.1.tgz#19607140acb06150441fcdb61be11f73f7b6657e"
+  dependencies:
+    arrify "^1.0.0"
+    diff "^3.1.0"
+    make-error "^1.1.1"
+    minimist "^1.2.0"
+    mkdirp "^0.5.1"
+    source-map-support "^0.5.6"
+    yn "^2.0.0"
 
 tunnel-agent@~0.4.1:
   version "0.4.3"
@@ -2572,3 +2637,7 @@ yargs@~3.10.0:
     cliui "^2.1.0"
     decamelize "^1.0.0"
     window-size "0.1.0"
+
+yn@^2.0.0:
+  version "2.0.0"
+  resolved "http://registry.npm.taobao.org/yn/download/yn-2.0.0.tgz#e5adabc8acf408f6385fc76495684c88e6af689a"

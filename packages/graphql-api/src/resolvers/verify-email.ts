@@ -1,5 +1,6 @@
 import { AccountsServer } from '@accounts/server';
 import { IResolverContext } from '../types/graphql';
+import { AccountsPassword } from '@accounts/password';
 
 export const verifyEmail = (accountsServer: AccountsServer) => async (
   _,
@@ -8,7 +9,7 @@ export const verifyEmail = (accountsServer: AccountsServer) => async (
 ) => {
   const { token } = args;
 
-  const password: any = accountsServer.getServices().password;
+  const password: any = accountsServer.getServices().password as AccountsPassword;
 
   if (!(typeof password.verifyEmail === 'function')) {
     throw new Error('Email verification is not supported.');
@@ -24,7 +25,7 @@ export const sendVerificationEmail = (accountsServer: AccountsServer) => async (
 ) => {
   const { email } = args;
 
-  const password: any = accountsServer.getServices().password;
+  const password: any = accountsServer.getServices().password as AccountsPassword;
 
   if (!(typeof password.sendVerificationEmail === 'function')) {
     throw new Error('Email verification is not supported.');
