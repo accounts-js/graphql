@@ -22,21 +22,23 @@ declare namespace GQL {
 
   interface IMutation {
     __typename: 'Mutation';
-    loginWithPassword: ILoginReturn | null;
+    impersonate: IImpersonateReturn | null;
     refreshTokens: ILoginReturn | null;
     logout: boolean | null;
-    impersonate: IImpersonateReturn | null;
-    createUser: boolean | null;
+    authenticate: ILoginReturn | null;
+    register: string | null;
     verifyEmail: boolean | null;
     resetPassword: boolean | null;
     sendVerificationEmail: boolean | null;
     sendResetPasswordEmail: boolean | null;
+    changePassword: boolean | null;
+    twoFactorSet: boolean | null;
+    twoFactorUnset: boolean | null;
   }
 
-  interface ILoginWithPasswordOnMutationArguments {
-    user?: string | null;
-    userFields?: IUserInput | null;
-    password: string;
+  interface IImpersonateOnMutationArguments {
+    accessToken: string;
+    username: string;
   }
 
   interface IRefreshTokensOnMutationArguments {
@@ -48,12 +50,12 @@ declare namespace GQL {
     accessToken: string;
   }
 
-  interface IImpersonateOnMutationArguments {
-    accessToken: string;
-    username: string;
+  interface IAuthenticateOnMutationArguments {
+    serviceName: string;
+    params: IAuthenticateParamsInput;
   }
 
-  interface ICreateUserOnMutationArguments {
+  interface IRegisterOnMutationArguments {
     user: ICreateUserInput;
   }
 
@@ -74,17 +76,31 @@ declare namespace GQL {
     email: string;
   }
 
-  interface IUserInput {
-    id?: string | null;
-    email?: string | null;
-    username?: string | null;
+  interface IChangePasswordOnMutationArguments {
+    oldPassword: string;
+    newPassword: string;
   }
 
-  interface ILoginReturn {
-    __typename: 'LoginReturn';
-    sessionId: string | null;
-    user: IUser | null;
+  interface ITwoFactorSetOnMutationArguments {
+    secret: string;
+    code: string;
+  }
+
+  interface ITwoFactorUnsetOnMutationArguments {
+    code: string;
+  }
+
+  interface IImpersonateReturn {
+    __typename: 'ImpersonateReturn';
+    authorized: boolean | null;
     tokens: ITokens | null;
+    user: IUser | null;
+  }
+
+  interface ITokens {
+    __typename: 'Tokens';
+    refreshToken: string | null;
+    accessToken: string | null;
   }
 
   interface IUser {
@@ -94,17 +110,17 @@ declare namespace GQL {
     username: string | null;
   }
 
-  interface ITokens {
-    __typename: 'Tokens';
-    refreshToken: string | null;
-    accessToken: string | null;
+  interface ILoginReturn {
+    __typename: 'LoginReturn';
+    sessionId: string | null;
+    user: IUser | null;
+    tokens: ITokens | null;
   }
 
-  interface IImpersonateReturn {
-    __typename: 'ImpersonateReturn';
-    authorized: boolean | null;
-    tokens: ITokens | null;
-    user: IUser | null;
+  interface IAuthenticateParamsInput {
+    access_token?: string | null;
+    access_token_secret?: string | null;
+    provider?: string | null;
   }
 
   interface ICreateUserInput {
@@ -122,7 +138,17 @@ declare namespace GQL {
 
   interface IQuery {
     __typename: 'Query';
-    me: IUser | null;
+    getUser: IUser | null;
+  }
+
+  interface IGetUserOnQueryArguments {
+    accessToken: string;
+  }
+
+  interface IUserInput {
+    id?: string | null;
+    email?: string | null;
+    username?: string | null;
   }
 
   interface IPasswordType {

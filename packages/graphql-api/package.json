@@ -28,6 +28,7 @@
   "homepage": "https://github.com/js-accounts/graphql-api",
   "devDependencies": {
     "@gql2ts/from-schema": "^1.8.0",
+    "@gql2ts/types": "^1.8.0",
     "concurrently": "^3.1.0",
     "coveralls": "^2.11.14",
     "jest": "^18.0.0",
@@ -36,8 +37,9 @@
     "node-dev": "^3.1.3"
   },
   "dependencies": {
-    "@accounts/server": "0.1.0-alpha.58382c10",
-    "@accounts/types": "0.1.0-beta.16",
+    "@accounts/common": "^0.1.0-beta.14",
+    "@accounts/server": "^0.1.0-beta.16",
+    "@accounts/types": "^0.1.0-beta.16",
     "deepmerge": "^2.0.0"
   }
 }

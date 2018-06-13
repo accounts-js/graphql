@@ -1,12 +1,12 @@
 import { AccountsServer } from "@accounts/server";
 import { IResolverContext } from "../types/graphql";
 
-export const refreshAccessToken = (accountsServer: AccountsServer) => async (
+export const serviceAuthenticate = (accountsServer: AccountsServer) => async (
   _,
-  args: GQL.IRefreshTokensOnMutationArguments,
+  args: GQL.IAuthenticateOnMutationArguments,
   ctx: IResolverContext
 ) => {
-  const { accessToken, refreshToken } = args;
+  const { serviceName, params } = args;
 
   // ! No IP and userAgent, using fake ones!
   // TODO: discussion needed
@@ -14,12 +14,13 @@ export const refreshAccessToken = (accountsServer: AccountsServer) => async (
   const userAgent =
     "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.79 Safari/537.36";
 
-  const refreshedSession = await accountsServer.refreshTokens(
-    accessToken,
-    refreshToken,
-    ip,
-    userAgent
+  const loggedInUser = await accountsServer.loginWithService(
+    serviceName,
+    params,
+    {
+      ip,
+      userAgent
+    }
   );
-
-  return refreshedSession.tokens;
+  return loggedInUser;
 };

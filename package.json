@@ -26,5 +26,10 @@
     "tslint": "^5.8.0",
     "tslint-config-accounts": "^0.0.3",
     "typescript": "^2.4.1"
+  },
+  "prettier": {
+    "singleQuote": true,
+    "trailingComma": "es5",
+    "printWidth": 100
   }
 }
