@@ -1,8 +1,6 @@
 import { AccountsServer } from '@accounts/server';
 import { IResolverContext } from '../types/graphql';
-import { AccountsPassword } from '@accounts/password';
-// tslint:disable-next-line:no-submodule-imports
-import { PasswordCreateUserType } from '@accounts/password/lib/types';
+import { AccountsPassword, PasswordCreateUserType } from '@accounts/password';
 
 export const registerPassword = (accountsServer: AccountsServer) => async (
   _,
