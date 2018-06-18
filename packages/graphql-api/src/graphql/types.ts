@@ -34,16 +34,6 @@ export const typeDefs = `
     profile: CreateUserProfileInput
   }
 
-  type PasswordType {
-    digest: String
-    algorithm: String
-  }
-
-  input PasswordInput {
-    digest: String
-    algorithm: String
-  }
-
   input CreateUserProfileInput {
     name: String
     firstName: String
