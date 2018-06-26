@@ -2,11 +2,22 @@
 # yarn lockfile v1
 
 
+"@accounts/client@^0.1.0-beta.17":
+  version "0.1.0-beta.17"
+  resolved "https://npm-registry.lodestreams.com/@accounts%2fclient/-/client-0.1.0-beta.17.tgz#4cf3f3cf0da28745d06f61638eef480a2185259e"
+  dependencies:
+    "@accounts/types" "^0.1.0-beta.17"
+    jwt-decode "2.2.0"
+
 "@accounts/common@0.1.0-alpha.58382c10":
   version "0.1.0-alpha.58382c10"
   resolved "https://registry.yarnpkg.com/@accounts/common/-/common-0.1.0-alpha.58382c10.tgz#b70db9a29a033fb2f2636d7b5f3bb568ffbae7c8"
   dependencies:
     lodash "^4.16.4"
+
+"@accounts/types@^0.1.0-beta.17":
+  version "0.1.0-beta.17"
+  resolved "https://npm-registry.lodestreams.com/@accounts%2ftypes/-/types-0.1.0-beta.17.tgz#8c78d3f1a3668e9f58e738c1409a40517ba61bdb"
 
 abab@^1.0.0:
   version "1.0.3"
@@ -1284,6 +1295,10 @@ jsprim@^1.2.2:
     extsprintf "1.0.2"
     json-schema "0.2.3"
     verror "1.3.6"
+
+jwt-decode@2.2.0:
+  version "2.2.0"
+  resolved "https://npm-registry.lodestreams.com/jwt-decode/-/jwt-decode-2.2.0.tgz#7d86bd56679f58ce6a84704a657dd392bba81a79"
 
 kind-of@^3.0.2:
   version "3.1.0"
