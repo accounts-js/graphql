@@ -15,9 +15,15 @@ export const typeDefs = `
     user: User
   }
 
+  type EmailRecord {
+    address: String
+    verified: Boolean
+  }
+
   type User {
     id: ID!
     email: String
+    emails: [EmailRecord]
     username: String
   }
 

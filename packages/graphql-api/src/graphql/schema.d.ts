@@ -106,8 +106,14 @@ declare namespace GQL {
   interface IUser {
     __typename: 'User';
     id: string;
-    email: string | null;
+    emails: Array<IEmailRecord> | null;
     username: string | null;
+  }
+
+  interface IEmailRecord {
+    __typename: 'EmailRecord';
+    address: string | null;
+    verified: boolean | null;
   }
 
   interface ILoginResult {
@@ -152,17 +158,6 @@ declare namespace GQL {
 
   interface IGetUserOnQueryArguments {
     accessToken: string;
-  }
-
-  interface IPasswordType {
-    __typename: 'PasswordType';
-    digest: string | null;
-    algorithm: string | null;
-  }
-
-  interface IPasswordInput {
-    digest?: string | null;
-    algorithm?: string | null;
   }
 }
 

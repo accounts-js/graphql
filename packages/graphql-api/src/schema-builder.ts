@@ -1,7 +1,5 @@
 import { AccountsServer } from '@accounts/server';
-import * as merge from 'deepmerge';
 
-import { loginWithPassword } from './resolvers/login-with-password';
 import { refreshAccessToken } from './resolvers/refresh-tokens';
 import { impersonate } from './resolvers/impersonate';
 import { getUser } from './resolvers/get-user';
