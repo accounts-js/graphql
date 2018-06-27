@@ -8,12 +8,7 @@ export const impersonate = (accountsServer: AccountsServer) => async (
   ctx: IResolverContext
 ) => {
   const { accessToken, username } = args;
-
-  // ! No IP and userAgent, using fake ones!
-  // TODO: discussion needed
-  const ip = '127.0.0.1';
-  const userAgent =
-    'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.79 Safari/537.36';
+  const { ip, userAgent } = ctx;
 
   const impersonateRes: ImpersonationResult = await accountsServer.impersonate(
     accessToken,
