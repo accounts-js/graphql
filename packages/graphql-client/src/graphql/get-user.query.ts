@@ -4,7 +4,10 @@ export const getUserQuery = gql`
   query($accessToken: String!) {
     getUser(accessToken: $accessToken) {
       id
-      email
+      emails {
+        address
+        verified
+      }
       username
     }
   }
