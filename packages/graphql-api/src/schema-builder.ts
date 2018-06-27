@@ -23,43 +23,35 @@ export interface SchemaGenerationOptions {
   withSchemaDefinition?: boolean;
 }
 
-const defaultSchemaOptions = {
-  rootQueryName: 'Query',
-  rootMutationName: 'Mutation',
-  extend: true,
-  withSchemaDefinition: false,
-};
-
 export const createJSAccountsGraphQL = (
   accountsServer: AccountsServer,
   schemaOptions?: SchemaGenerationOptions
 ) => {
   // Apply default values
-  const {
-    rootQueryName = defaultSchemaOptions.rootQueryName,
-    rootMutationName = defaultSchemaOptions.rootMutationName,
-    extend = defaultSchemaOptions.extend,
-    withSchemaDefinition = defaultSchemaOptions.withSchemaDefinition,
-  } =
-    schemaOptions || {};
-  const options = { rootQueryName, rootMutationName, extend, withSchemaDefinition };
+  schemaOptions = {
+    rootQueryName: schemaOptions.rootQueryName || 'Query',
+    rootMutationName: schemaOptions.rootMutationName || 'Mutation',
+    extend: schemaOptions.extend !== undefined ? schemaOptions.extend : true,
+    withSchemaDefinition:
+      schemaOptions.withSchemaDefinition !== undefined ? schemaOptions.withSchemaDefinition : false,
+  };
 
   const schema = `
   ${typeDefs}
 
-  ${options.extend ? 'extend ' : ''}type ${options.rootQueryName} {
+  ${schemaOptions.extend ? 'extend ' : ''}type ${schemaOptions.rootQueryName} {
     ${queries}
   }
 
-  ${options.extend ? 'extend ' : ''}type ${options.rootMutationName} {
+  ${schemaOptions.extend ? 'extend ' : ''}type ${schemaOptions.rootMutationName} {
     ${mutations}
   }
 
   ${
-    options.withSchemaDefinition
+    schemaOptions.withSchemaDefinition
       ? `schema {
-    query: ${options.rootMutationName}
-    mutation: ${options.rootQueryName}
+    query: ${schemaOptions.rootMutationName}
+    mutation: ${schemaOptions.rootQueryName}
   }`
       : ''
   }
@@ -67,7 +59,7 @@ export const createJSAccountsGraphQL = (
 
   const resolvers = {
     User,
-    [options.rootMutationName]: {
+    [schemaOptions.rootMutationName]: {
       impersonate: impersonate(accountsServer),
       refreshTokens: refreshAccessToken(accountsServer),
       logout: logout(accountsServer),
@@ -88,7 +80,7 @@ export const createJSAccountsGraphQL = (
 
       // TODO: OAuth callback endpoint
     },
-    [options.rootQueryName]: {
+    [schemaOptions.rootQueryName]: {
       getUser: getUser(accountsServer),
       twoFactorSecret: twoFactorSecret(accountsServer),
     },
