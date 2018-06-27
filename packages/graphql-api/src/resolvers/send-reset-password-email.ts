@@ -12,7 +12,7 @@ export const sendResetPasswordEmail = (accountsServer: AccountsServer) => async 
   const password: any = accountsServer.getServices().password as AccountsPassword;
 
   if (!(typeof password.sendResetPasswordEmail === 'function')) {
-    throw new Error('Reset password is not supported.');
+    throw new Error('No service handle password reset.');
   }
 
   return password.sendResetPasswordEmail(email);

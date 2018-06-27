@@ -12,7 +12,7 @@ export const verifyEmail = (accountsServer: AccountsServer) => async (
   const password: any = accountsServer.getServices().password as AccountsPassword;
 
   if (!(typeof password.verifyEmail === 'function')) {
-    throw new Error('Email verification is not supported.');
+    throw new Error('No service handle email verification.');
   }
 
   return password.verifyEmail(token);
@@ -28,7 +28,7 @@ export const sendVerificationEmail = (accountsServer: AccountsServer) => async (
   const password: any = accountsServer.getServices().password as AccountsPassword;
 
   if (!(typeof password.sendVerificationEmail === 'function')) {
-    throw new Error('Email verification is not supported.');
+    throw new Error('No service handle email verification.');
   }
 
   return password.sendVerificationEmail(email);

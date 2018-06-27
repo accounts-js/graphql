@@ -17,7 +17,7 @@ export const twoFactorSecret = (accountsServer: AccountsServer) => async (
   const password: any = accountsServer.getServices().password as AccountsPassword;
 
   if (!(typeof password.resetPassword === 'function')) {
-    throw new Error('Change password is not supported.');
+    throw new Error('No service handle password modification.');
   }
 
   return password.twoFactor.getNewAuthSecret();
@@ -40,7 +40,7 @@ export const twoFactorSet = (accountsServer: AccountsServer) => async (
   const password: any = accountsServer.getServices().password as AccountsPassword;
 
   if (!(password && password.twoFactor && typeof password.twoFactor.set === 'function')) {
-    throw new Error('Set two factor is not supported.');
+    throw new Error('No service handle set two factor.');
   }
 
   return password.twoFactor.set(userId, secret, code);
@@ -63,7 +63,7 @@ export const twoFactorUnset = (accountsServer: AccountsServer) => async (
   const password: any = accountsServer.getServices().password as AccountsPassword;
 
   if (!(password && password.twoFactor && typeof password.twoFactor.unset === 'function')) {
-    throw new Error('Unset two factor is not supported.');
+    throw new Error('No service handle two factor.');
   }
 
   await password.twoFactor.unset(userId, code);

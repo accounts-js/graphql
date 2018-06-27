@@ -8,6 +8,7 @@ export const impersonateMutation = gql`
         refreshToken
         accessToken
       }
+      # // TODO: Extract user into a fragment
       user {
         id
         email
