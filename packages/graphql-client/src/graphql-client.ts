@@ -2,6 +2,18 @@ import { TransportInterface, AccountsClient } from '@accounts/client';
 import { CreateUser, LoginResult, ImpersonationResult } from '@accounts/types';
 import { createUserMutation } from './graphql/create-user.mutation';
 import { loginWithServiceMutation } from './graphql/login-with-service.mutation';
+import { logoutMutation } from './graphql/logout.mutation';
+import { refreshTokensMutation } from './graphql/refresh-tokens.mutation';
+import { verifyEmailMutation } from './graphql/verify-email.mutation';
+import { sendResetPasswordEmailMutation } from './graphql/send-reset-password-email.mutation';
+import { sendVerificationEmailMutation } from './graphql/send-verification-email.mutation';
+import { resetPasswordMutation } from './graphql/reset-password.mutation';
+import { changePasswordMutation } from './graphql/change-password.mutation';
+import { twoFactorSetMutation } from './graphql/two-factor-set.mutation';
+import { getTwoFactorSecretQuery } from './graphql/get-two-factor-secret.query';
+import { twoFactorUnsetMutation } from './graphql/two-factor-unset.mutation';
+import { impersonateMutation } from './graphql/impersonate.mutation';
+import { getUserQuery } from './graphql/get-user.query';
 
 export interface IAuthenticateParams {
   [key: string]: string | object;
@@ -32,41 +44,7 @@ export default class GraphQLClient implements TransportInterface {
   }
 
   /**
-   * Login with a service, the service is registered on the server using
-   *
-   * ```ts
-   * const accountsServices = {
-   *   password: new AccountsPassword(),
-   *   //...other services
-   * };
-   * new AccountsServer(accountsServerOptions, accountsServices);
-   * ```
-   *
-   * For example, password authentication, you can use this method like this
-   *
-   * ```ts
-   * await loginWithService('password', { user: { email: 'xx@xx.xx' }, password: 'xxx' });
-   * ```
-   *
-   * or, more suggested way is to use '@accounts/client-password'
-   *
-   * ```ts
-   * import { AccountsClientPassword } from '@accounts/client-password';
-   * const accountsPassword = new AccountsClientPassword(accountsClient);
-   *
-   * await accountsPassword.login({
-   *   user: {
-   *     email: this.state.email,
-   *   },
-   *   password: this.state.password,
-   *   code: this.state.code,
-   * });
-   * ```
-   *
-   * @param {string} service service name, for example password.
-   * @param {IAuthenticateParams} authenticateParams authentication params, see GraphiQL authenticate mutation
-   * @returns {Promise<LoginResult>} LoginResult
-   * @memberof GraphQLClient
+   * @inheritDoc
    */
   public async loginWithService(
     service: string,
@@ -77,40 +55,75 @@ export default class GraphQLClient implements TransportInterface {
       params: authenticateParams,
     });
   }
+
+  public async getUser(accessToken) {
+    return this.query(getUserQuery, 'getUser', { accessToken });
+  }
+
+  /**
+   * @inheritDoc
+   */
   public async logout(accessToken: string): Promise<void> {
-    // TODO:
+    return this.mutate(logoutMutation, 'logout', { accessToken });
   }
+
+  /**
+   * @inheritDoc
+   */
   public async refreshTokens(accessToken: string, refreshToken: string): Promise<LoginResult> {
-    // TODO:
-    return;
+    return this.mutate(refreshTokensMutation, 'refreshTokens', { accessToken, refreshToken });
   }
+
+  /**
+   * @inheritDoc
+   */
   public async verifyEmail(token: string): Promise<void> {
-    // TODO:
+    return this.mutate(verifyEmailMutation, 'verifyEmail', { token });
   }
+
+  /**
+   * @inheritDoc
+   */
   public async sendResetPasswordEmail(email: string): Promise<void> {
-    // TODO:
+    return this.mutate(sendResetPasswordEmailMutation, 'sendResetPasswordEmail', { email });
   }
+
+  /**
+   * @inheritDoc
+   */
   public async sendVerificationEmail(email: string): Promise<void> {
-    // TODO:
+    return this.mutate(sendVerificationEmailMutation, 'sendVerificationEmail', { email });
   }
+
+  /**
+   * @inheritDoc
+   */
   public async resetPassword(token: string, newPassword: string): Promise<void> {
-    // TODO:
+    return this.mutate(resetPasswordMutation, 'resetPassword', { token, newPassword });
   }
+
+  /**
+   * @inheritDoc
+   */
   public async changePassword(oldPassword: string, newPassword: string): Promise<void> {
-    // TODO:
-  }
-  public async getTwoFactorSecret(customHeaders?: object): Promise<any> {
-    // TODO:
+    return this.mutate(changePasswordMutation, 'changePassword', { oldPassword, newPassword });
   }
 
-  public async twoFactorSet(secret: any, code: string, customHeaders?: object): Promise<void> {
-    // TODO:
+  public async getTwoFactorSecret(): Promise<any> {
+    return this.query(getTwoFactorSecretQuery, 'twoFactorSecret', {});
   }
 
-  public async twoFactorUnset(code: string, customHeaders?: object): Promise<void> {
-    // TODO:
+  public async twoFactorSet(secret: any, code: string): Promise<void> {
+    return this.mutate(twoFactorSetMutation, 'twoFactorSet', { secret, code });
   }
 
+  public async twoFactorUnset(code: string): Promise<void> {
+    return this.mutate(twoFactorUnsetMutation, 'twoFactorUnset', { code });
+  }
+
+  /**
+   * @inheritDoc
+   */
   public async impersonate(
     token: string,
     impersonated: {
@@ -119,8 +132,10 @@ export default class GraphQLClient implements TransportInterface {
       email?: string;
     }
   ): Promise<ImpersonationResult> {
-    // TODO:
-    return;
+    return this.mutate(impersonateMutation, 'impersonate', {
+      accessToken: token,
+      username: impersonated.username,
+    });
   }
 
   private async mutate(mutation, resultField, variables) {
