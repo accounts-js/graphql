@@ -83,6 +83,12 @@
   version "10.3.6"
   resolved "https://npm-registry.lodestreams.com/@types%2fnode/-/node-10.3.6.tgz#ea8aab9439b59f40d19ec5f13b44642344872b11"
 
+"@types/request-ip@^0.0.33":
+  version "0.0.33"
+  resolved "https://npm-registry.lodestreams.com/@types%2frequest-ip/-/request-ip-0.0.33.tgz#4c4a16f8b27a4ed906470fdac64168bc4de6c295"
+  dependencies:
+    "@types/node" "*"
+
 "@types/speakeasy@2.0.2":
   version "2.0.2"
   resolved "https://npm-registry.lodestreams.com/@types%2fspeakeasy/-/speakeasy-2.0.2.tgz#153ec3636eea0562209b0a2f1fdf8b479286919b"

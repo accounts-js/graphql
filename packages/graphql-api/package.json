@@ -42,6 +42,7 @@
     "@accounts/password": "^0.1.0-beta.17",
     "@accounts/server": "^0.1.0-beta.17",
     "@accounts/types": "^0.1.0-beta.17",
+    "@types/request-ip": "^0.0.33",
     "deepmerge": "^2.1.1",
     "request-ip": "^2.0.2"
   }
