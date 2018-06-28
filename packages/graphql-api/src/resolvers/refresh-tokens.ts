@@ -16,5 +16,5 @@ export const refreshAccessToken = (accountsServer: AccountsServer) => async (
     userAgent
   );
 
-  return refreshedSession.tokens;
+  return refreshedSession;
 };
