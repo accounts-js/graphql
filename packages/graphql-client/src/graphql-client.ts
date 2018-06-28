@@ -139,7 +139,7 @@ export default class GraphQLClient implements TransportInterface {
   }
 
   private async mutate(mutation, resultField, variables) {
-    const tokens = (await this.client.getTokens()) || { accessToken: '' };
+    const tokens = (await this.client.refreshSession()) || { accessToken: '' };
 
     try {
       const { data } = await this.options.graphQLClient.mutate({
@@ -153,17 +153,12 @@ export default class GraphQLClient implements TransportInterface {
       });
       return data[resultField];
     } catch (e) {
-      if (e.message && e.message.toLowerCase().includes('tokens are not valid')) {
-        await this.client.refreshSession();
-        return this.mutate(mutation, resultField, variables);
-      }
-
       throw new Error(e.message);
     }
   }
 
   private async query(query, resultField, variables) {
-    const tokens = (await this.client.getTokens()) || { accessToken: '' };
+    const tokens = (await this.client.refreshSession()) || { accessToken: '' };
 
     try {
       const { data } = await this.options.graphQLClient.query({
@@ -177,11 +172,6 @@ export default class GraphQLClient implements TransportInterface {
       });
       return data[resultField];
     } catch (e) {
-      if (e.message && e.message.toLowerCase().includes('tokens are not valid')) {
-        await this.client.refreshSession();
-        return this.query(query, resultField, variables);
-      }
-
       throw new Error(e.message);
     }
   }
