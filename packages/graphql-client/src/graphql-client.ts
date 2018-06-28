@@ -141,30 +141,32 @@ export default class GraphQLClient implements TransportInterface {
   private async mutate(mutation, resultField, variables) {
     const tokens = (await this.client.getTokens()) || { accessToken: '' };
 
-    return (
-      this.options.graphQLClient
-        // TODO: add Authorization header
-        .mutate({
-          mutation,
-          variables,
-          context: {
-            headers: {
-              authorization: tokens.accessToken,
-            },
+    try {
+      const { data } = await this.options.graphQLClient.mutate({
+        mutation,
+        variables,
+        context: {
+          headers: {
+            authorization: tokens.accessToken,
           },
-        })
-        .then(({ data }) => data[resultField])
-        .catch(e => {
-          throw new Error(e.message);
-        })
-    );
+        },
+      });
+      return data[resultField];
+    } catch (e) {
+      if (e.message && e.message.toLowerCase().includes('tokens are not valid')) {
+        await this.client.refreshSession();
+        return this.mutate(mutation, resultField, variables);
+      }
+
+      throw new Error(e.message);
+    }
   }
 
   private async query(query, resultField, variables) {
     const tokens = (await this.client.getTokens()) || { accessToken: '' };
 
-    return this.options.graphQLClient
-      .query({
+    try {
+      const { data } = await this.options.graphQLClient.query({
         query,
         variables,
         context: {
@@ -172,10 +174,15 @@ export default class GraphQLClient implements TransportInterface {
             authorization: tokens.accessToken,
           },
         },
-      })
-      .then(({ data }) => data[resultField])
-      .catch(e => {
-        throw new Error(e.message);
       });
+      return data[resultField];
+    } catch (e) {
+      if (e.message && e.message.toLowerCase().includes('tokens are not valid')) {
+        await this.client.refreshSession();
+        return this.query(query, resultField, variables);
+      }
+
+      throw new Error(e.message);
+    }
   }
 }
