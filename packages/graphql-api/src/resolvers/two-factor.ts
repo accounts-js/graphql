@@ -44,7 +44,8 @@ export const twoFactorSet = (accountsServer: AccountsServer) => async (
   if (!(password && password.twoFactor && typeof password.twoFactor.set === 'function')) {
     throw new Error('No service handle set two factor.');
   }
-
+// tslint:disable-next-line:no-console
+console.log('two factor', userId, secret, code);
   return password.twoFactor.set(userId, secret, code);
 };
 

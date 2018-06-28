@@ -14,6 +14,6 @@ export const mutations = `
   sendVerificationEmail(email: String!): Boolean
   sendResetPasswordEmail(email: String!): Boolean
   changePassword(oldPassword: String!, newPassword: String!): Boolean
-  twoFactorSet(secret: String!, code: String!): Boolean
+  twoFactorSet(secret: TwoFactorSecretKeyInput!, code: String!): Boolean
   twoFactorUnset(code: String!): Boolean
 `;
