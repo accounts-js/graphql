@@ -15,6 +15,7 @@ import { verifyEmail, sendVerificationEmail } from './resolvers/verify-email';
 import { serviceAuthenticate } from './resolvers/authenticate';
 import { changePassword } from './resolvers/change-password';
 import { twoFactorSet, twoFactorUnset, twoFactorSecret } from './resolvers/two-factor';
+import { authenticated } from './utils/authenticated-resolver';
 
 export interface SchemaGenerationOptions {
   rootQueryName?: string;
@@ -72,17 +73,17 @@ export const createJSAccountsGraphQL = (
       resetPassword: resetPassword(accountsServer),
       sendVerificationEmail: sendVerificationEmail(accountsServer),
       sendResetPasswordEmail: sendResetPasswordEmail(accountsServer),
-      changePassword: changePassword(accountsServer),
+      changePassword: authenticated(accountsServer, changePassword(accountsServer)),
 
       // Two factor
-      twoFactorSet: twoFactorSet(accountsServer),
-      twoFactorUnset: twoFactorUnset(accountsServer),
+      twoFactorSet: authenticated(accountsServer, twoFactorSet(accountsServer)),
+      twoFactorUnset: authenticated(accountsServer, twoFactorUnset(accountsServer)),
 
       // TODO: OAuth callback endpoint
     },
     [schemaOptions.rootQueryName]: {
       getUser: getUser(accountsServer),
-      twoFactorSecret: twoFactorSecret(accountsServer),
+      twoFactorSecret: authenticated(accountsServer, twoFactorSecret(accountsServer)),
     },
   };
 
