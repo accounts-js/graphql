@@ -139,23 +139,39 @@ export default class GraphQLClient implements TransportInterface {
   }
 
   private async mutate(mutation, resultField, variables) {
-    return this.options.graphQLClient
-    // TODO: add Authorization header
-      .mutate({
-        mutation,
-        variables,
-      })
-      .then(({ data }) => data[resultField])
-      .catch(e => {
-        throw new Error(e.message);
-      });
+    const tokens = (await this.client.getTokens()) || { accessToken: '' };
+
+    return (
+      this.options.graphQLClient
+        // TODO: add Authorization header
+        .mutate({
+          mutation,
+          variables,
+          context: {
+            headers: {
+              authorization: tokens.accessToken,
+            },
+          },
+        })
+        .then(({ data }) => data[resultField])
+        .catch(e => {
+          throw new Error(e.message);
+        })
+    );
   }
 
   private async query(query, resultField, variables) {
+    const tokens = (await this.client.getTokens()) || { accessToken: '' };
+
     return this.options.graphQLClient
       .query({
         query,
         variables,
+        context: {
+          headers: {
+            authorization: tokens.accessToken,
+          },
+        },
       })
       .then(({ data }) => data[resultField])
       .catch(e => {

@@ -20,7 +20,9 @@ export const twoFactorSecret = (accountsServer: AccountsServer) => async (
     throw new Error('No service handle password modification.');
   }
 
-  return password.twoFactor.getNewAuthSecret();
+  // https://github.com/speakeasyjs/speakeasy/blob/master/index.js#L517
+  const secret = password.twoFactor.getNewAuthSecret();
+  return secret;
 };
 
 export const twoFactorSet = (accountsServer: AccountsServer) => async (

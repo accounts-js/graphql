@@ -1,4 +1,4 @@
 export const queries = `
   getUser(accessToken: String!): User
-  twoFactorSecret: String
+  twoFactorSecret: TwoFactorSecretKey
 `;

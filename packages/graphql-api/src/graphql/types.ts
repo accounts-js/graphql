@@ -27,6 +27,18 @@ export const typeDefs = `
     username: String
   }
 
+  type TwoFactorSecretKey {
+    ascii: String
+    base32: String
+    hex: String
+    qr_code_ascii: String
+    qr_code_hex: String
+    qr_code_base32: String
+    google_auth_qr: String
+    otpauth_url: String
+  }
+
+
   input UserInput {
     id: ID
     email: String
