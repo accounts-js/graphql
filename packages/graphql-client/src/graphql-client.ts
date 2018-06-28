@@ -140,6 +140,7 @@ export default class GraphQLClient implements TransportInterface {
 
   private async mutate(mutation, resultField, variables) {
     return this.options.graphQLClient
+    // TODO: add Authorization header
       .mutate({
         mutation,
         variables,

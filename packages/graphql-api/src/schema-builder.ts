@@ -24,17 +24,20 @@ export interface SchemaGenerationOptions {
   withSchemaDefinition?: boolean;
 }
 
+const defaultSchemaOptions = {
+  rootQueryName: 'Query',
+  rootMutationName: 'Mutation',
+  extend: true,
+  withSchemaDefinition: false,
+};
+
 export const createJSAccountsGraphQL = (
   accountsServer: AccountsServer,
   schemaOptions?: SchemaGenerationOptions
 ) => {
-  // Apply default values
   schemaOptions = {
-    rootQueryName: schemaOptions.rootQueryName || 'Query',
-    rootMutationName: schemaOptions.rootMutationName || 'Mutation',
-    extend: schemaOptions.extend !== undefined ? schemaOptions.extend : true,
-    withSchemaDefinition:
-      schemaOptions.withSchemaDefinition !== undefined ? schemaOptions.withSchemaDefinition : false,
+    ...defaultSchemaOptions,
+    ...schemaOptions,
   };
 
   const schema = `
