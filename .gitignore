@@ -8,3 +8,4 @@ lerna-debug.log
 packages/*/package-lock.json
 .DS_Store
 .vs
+package-lock.json
